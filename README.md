@@ -1,1 +1,1 @@
-# kronic-audio-tagger
+# wooly-discogs-browser
