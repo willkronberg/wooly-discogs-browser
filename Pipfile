@@ -1,0 +1,30 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+requests = "*"
+pre-commit = "*"
+python3-discogs-client = "*"
+boto3 = "*"
+mypy-boto3 = "*"
+boto3-stubs = "*"
+mypy-boto3-secretsmanager = "*"
+
+[dev-packages]
+isort = "*"
+black = "*"
+flake8 = "*"
+mypy = "*"
+pytest = "*"
+pytest-cov = "*"
+pipenv-setup = "*"
+types-requests = "*"
+mypy-boto3 = "*"
+
+[requires]
+python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true
