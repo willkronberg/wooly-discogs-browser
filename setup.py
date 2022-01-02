@@ -1,9 +1,9 @@
 from setuptools import setup
 
 setup(
-    name="kronic-audio-tagger",
+    name="wooly-discogs-browser",
     version="1.0.0",
-    description="Tags songs with little to no metadata.",
+    description="Views Will's Discogs Catalog.",
     author="Will Kronberg",
     author_email="will@willkronberg.dev",
     url="https://willkronberg.dev",

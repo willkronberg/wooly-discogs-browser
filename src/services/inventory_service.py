@@ -5,12 +5,13 @@ from discogs_client.exceptions import HTTPError
 from discogs_client.models import CollectionItemInstance, Release
 from mypy_boto3_secretsmanager.type_defs import GetSecretValueResponseTypeDef
 
+from src.constants.discogs import INVALID_CONSUMER_TOKEN
 from src.services.secrets_service import SecretsService
 
 
 class InventoryService:
     client: Client
-    secrets: GetSecretValueResponseTypeDef
+    secret: GetSecretValueResponseTypeDef
 
     def __init__(self):
         secrets_service = SecretsService()
@@ -19,7 +20,6 @@ class InventoryService:
 
     def get_inventory(self) -> List[Release]:
         """Retrieves the user's inventory"""
-
         try:
             me = self.client.user("will.kronberg")
 
@@ -31,10 +31,7 @@ class InventoryService:
 
             return releases
         except HTTPError as error:
-            if (
-                error.msg
-                == "401: Invalid consumer token. Please register an app before making requests."
-            ):
+            if error.msg == INVALID_CONSUMER_TOKEN:
                 raise MissingDiscogsConsumerToken(error)
             else:
                 print(error)
