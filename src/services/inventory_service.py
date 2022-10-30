@@ -1,3 +1,4 @@
+import traceback
 from typing import List
 
 from discogs_client import Client
@@ -15,8 +16,8 @@ class InventoryService:
 
     def __init__(self):
         secrets_service = SecretsService()
-        self.secret = secrets_service.get_secret_value("DiscogsPersonalAccessKey")
-        self.client = Client("Wooly/0.1", user_token=self.secret.get("user_token"))
+        self.user_token = secrets_service.get_user_token("DiscogsPersonalAccessKey")
+        self.client = Client("Wooly/0.1", user_token=self.user_token)
 
     def get_inventory(self) -> List[Release]:
         """Retrieves the user's inventory"""
@@ -34,7 +35,7 @@ class InventoryService:
             if error.msg == INVALID_CONSUMER_TOKEN:
                 raise MissingDiscogsConsumerToken(error)
             else:
-                print(error)
+                traceback.print_tb(error.__traceback__)
                 raise error
 
 
