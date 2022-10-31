@@ -5,7 +5,8 @@ from unittest.mock import Mock, patch
 import pytest
 from traceback import print_tb
 
-discogs_client_mock = Mock()
+secrets_mock = Mock()
+discogs_mock = Mock()
 
 
 class User:
@@ -18,9 +19,10 @@ def discogs_response():
     return User()
 
 
-@patch("src.services.inventory_service.Client", discogs_client_mock)
+@patch("src.services.inventory_service.SecretsService", secrets_mock)
+@patch("src.services.inventory_service.Client", discogs_mock)
 def test_get_inventory_with_consumer_token(discogs_response):
-    discogs_client_mock.return_value.user.return_value = discogs_response
+    discogs_mock.return_value.user.return_value = discogs_response
 
     response = None
     error = None
@@ -29,7 +31,6 @@ def test_get_inventory_with_consumer_token(discogs_response):
         response = inventory_service.get_inventory()
     except Exception as e:
         print(e)
-        print_tb(e.__traceback__)
         error = e
         raise e
 
