@@ -23,6 +23,7 @@ class InventoryService:
         """Retrieves the user's inventory"""
         try:
             me = self.client.user("will.kronberg")
+            print(me)
 
             releases: List[Release] = []
             for folder in me.collection_folders:
